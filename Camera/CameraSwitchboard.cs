@@ -15,30 +15,35 @@
 
 
 using UnityEngine;
+using System.Collections.Generic;
 
 public class CameraSwitchboard : MonoBehaviour
 {
 	//lets initiallise a few arrays for our GUI
 	//public int numberOfCameras;
-
 	public GameObject[] cameras;
 	public string[] cameraControlKey;
 
+	//Used for ViewPortInPicture turnOn bool
+	public string miniCameraKey;
 
 	//The audio listener will have to be turned on for the active camera
 	//Will have to be turned off for all inactive cameras
 	public bool changeAudioListener = true;
 
-
 	void Start()
 	{
-				SwitchCamera (0);
+		SwitchCamera(0);
 	}
 
 
 	//Every frame check if player input any of the key
 	void Update()
 	{
+		//Let's check if user wants to toggle MiniCamera On/Off
+		//if (Input.GetKeyUp(miniCameraKey)
+			
+
 		//Debug.Log(Input.GetKeyUp(KeyCode.Space));
 		for (int i = 0; i < cameras.Length; i++)
 		{
@@ -54,15 +59,19 @@ public class CameraSwitchboard : MonoBehaviour
 			if (i != index)
 			{
 				if (changeAudioListener)
-				{cameras[i].GetComponent<AudioListener>().enabled = false;}
+				{
+					cameras[i].GetComponent<AudioListener>().enabled = false;
 					//this is Unity Generic Function synthax function FuncName.<T>()
-				cameras[i].camera.enabled = false;
+					cameras[i].camera.enabled = false;
+				}
 			}
 			else
 			{
 				if (changeAudioListener)
-				{cameras[i].GetComponent<AudioListener>().enabled = true;}
-				cameras[i].camera.enabled = true;
+				{
+					cameras[i].GetComponent<AudioListener>().enabled = true;
+					cameras[i].camera.enabled = true;
+				}
 			}
 
 		}
