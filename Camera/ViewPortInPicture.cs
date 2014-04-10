@@ -1,6 +1,11 @@
 ﻿/* Based of Unity 4.x Cookbook script "PictureInPicture"
  * Can be attached to any camera, and will create a PictureInPicture frame for that camera.
  * Keep UPDATE on whilst editing, but you should turn it off during play.
+ * 
+ * Updates:
+ * - Added support for turning on and off.
+ * - Added field to drag the camera to (in case you want to select other cameras)
+ * - This script can now live on anoter object (eg. cameraswitchboard).
  */
 
 using UnityEngine;
@@ -10,6 +15,7 @@ public class ViewPortInPicture: MonoBehaviour
 	//turns the frame on/off.
 	//can be triggered by events/other scripts
 	public bool turnOn = true;
+	public GameObject MiniCamera;
 
 
 	//let's create a variable for the position of the new window
@@ -41,15 +47,27 @@ public class ViewPortInPicture: MonoBehaviour
 	//starts the script
 	void Start()
 	{ 
-		if (turnOn)
-			AdjustCamera(); 
+		if (turnOn) 
+		{
+			//Debug.Log ("Start Bang!");
+			AdjustCamera ();
+			MiniCamera.camera.enabled = true;
+		}
+		else
+			MiniCamera.camera.enabled = false;
 	}
 
 	//updates every frame (monobehaviour.update()
 	void Update()
 	{
 		if (update && turnOn)
-			AdjustCamera();
+		{
+			//Debug.Log ("Update Bang!");
+			AdjustCamera ();
+			MiniCamera.camera.enabled = true;
+		}
+		else
+			MiniCamera.camera.enabled = false;
 	}
 
 	void AdjustCamera()
@@ -98,7 +116,7 @@ public class ViewPortInPicture: MonoBehaviour
 		}
 
 		//set camera.pixelRect with a new position for the camera rectangle
-		camera.pixelRect = new Rect(hloc,vloc,hsize,vsize);
+		MiniCamera.camera.pixelRect = new Rect(hloc,vloc,hsize,vsize);
 	}
 }
 
