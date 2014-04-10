@@ -11,6 +11,9 @@
  * Changes:
  * - Added a start statement that will ensure other cameras are not on.
  * - Added a start statement to ensure no other audio listeners are on.
+ * 
+ * NOTE!!
+ * - MiniCamera key only works if ViewPortInPicture is on the same Unity Object as this script.
  */
 
 
@@ -34,6 +37,7 @@ public class CameraSwitchboard : MonoBehaviour
 	void Start()
 	{
 		SwitchCamera(0);
+
 	}
 
 
@@ -41,8 +45,11 @@ public class CameraSwitchboard : MonoBehaviour
 	void Update()
 	{
 		//Let's check if user wants to toggle MiniCamera On/Off
-		//if (Input.GetKeyUp(miniCameraKey)
-			
+		if (Input.GetKeyUp(miniCameraKey))
+		{
+			ViewPortInPicture miniCameraScript = GetComponent<ViewPortInPicture>();
+			miniCameraScript.turnOn = !miniCameraScript.turnOn;
+		}
 
 		//Debug.Log(Input.GetKeyUp(KeyCode.Space));
 		for (int i = 0; i < cameras.Length; i++)
