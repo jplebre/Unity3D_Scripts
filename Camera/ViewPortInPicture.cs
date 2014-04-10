@@ -1,7 +1,16 @@
-﻿using UnityEngine;
+﻿/* Based of Unity 4.x Cookbook script "PictureInPicture"
+ * Can be attached to any camera, and will create a PictureInPicture frame for that camera.
+ * Keep UPDATE on whilst editing, but you should turn it off during play.
+ */
+
+using UnityEngine;
 
 public class ViewPortInPicture: MonoBehaviour
 {
+	//turns the frame on/off.
+	//can be triggered by events/other scripts
+	public bool turnOn = true;
+
 
 	//let's create a variable for the position of the new window
 	//we use enum so we encapsulate several variables
@@ -30,12 +39,16 @@ public class ViewPortInPicture: MonoBehaviour
 	private int hsize, vsize, hloc, vloc ;
 
 	//starts the script
-	void Start(){ AdjustCamera(); }
+	void Start()
+	{ 
+		if (turnOn)
+			AdjustCamera(); 
+	}
 
 	//updates every frame (monobehaviour.update()
 	void Update()
 	{
-		if (update)
+		if (update && turnOn)
 			AdjustCamera();
 	}
 
