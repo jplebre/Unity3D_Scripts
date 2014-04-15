@@ -26,7 +26,7 @@ namespace Assets.Scripts.State_Manager.States
 			//Remember the new State needs its construct initiated
 			//We are also passing to the new State who's the StateManager
 			if(Input.GetKeyUp (KeyCode.Space))
-				manager.SwitchState(new PlayState(manager));
+				Switch ();
 
 
 		}
@@ -37,8 +37,16 @@ namespace Assets.Scripts.State_Manager.States
 			{
 				//this pauses the game whilst in this screen
 				Time.timeScale = 1;
-				manager.SwitchState (new PlayState(manager));
+				Switch ()
 			}
+		}
+
+
+		//since 2 different methods change to the PlayState
+		//We replaced that for a function call to Switch()
+		void Switch()
+		{
+			manager.SwitchState(new PlayState(manager));
 		}
 
 		public void StateFixedUpdate()
