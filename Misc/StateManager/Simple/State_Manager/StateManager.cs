@@ -9,6 +9,23 @@ public class StateManager : MonoBehaviour {
 	//This variable also instatiates class with IStateBase interface and stores a reference (place in memory) for a variable that holds State classes
 	private IStateBase activeState;
 
+
+	private static StateManager managerInstanceRef;
+
+
+	//Preventing destroying the object on load or creating copies when calling other scenes
+	void Awake()
+	{
+		if (managerInstanceRef)
+		{
+			managerInstanceRef = this;
+			DontDestroyOnLoad(gameObject);
+		}
+		else
+			DestroyImmediate(gameObject);
+	}
+
+
 	// Use this for initialization
 	void Start () 
 	{
